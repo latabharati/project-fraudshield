@@ -347,7 +347,7 @@ def explain_row_with_shap(model_name, row_full, row_reduced, top_n=8):
 
         explainer = SHAP_EXPLAINERS[model_name]
 
-        # Logistic Regression: SHAP is calculated on scaled values because that is
+        # Logistic Regression: SHAP is calculated on scaled values
         if model_name == "LogisticRegression":
             row_for_shap = row_reduced[FEATURE_COLS_REDUCED]
             row_scaled = SCALER.transform(row_for_shap)

@@ -770,15 +770,15 @@
     "RelativeWeekday"
   ],
   "model_thresholds": {
-    "LogisticRegression": 0.8443406835794732,
+    "LogisticRegression": 0.8333944985026857,
     "RandomForest": 0.18,
     "XGBoost": 0.7796962261199951,
-    "CatBoost": 0.7790497974510152,
-    "MLP": 0.26600957450566903,
+    "CatBoost": 0.7463136460820151,
+    "MLP": 0.26600957450302387,
     "IsolationForest": 0.31202656737569334,
-    "Autoencoder": 0.00032325538125789287,
-    "SoftVoting": 0.5105197731500455,
-    "Stacking": 0.24987788078902143
+    "Autoencoder": 0.00017990278738639945,
+    "SoftVoting": 0.5063047622765505,
+    "Stacking": 0.2655816746322685
   },
   "voting_models": [
     "LogisticRegression",
