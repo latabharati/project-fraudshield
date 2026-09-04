@@ -1,0 +1,44 @@
+git clone https://github.com/YOUR_USERNAME/YOUR_PROJECT.git
+cd YOUR_PROJECT
+
+gcloud config get-value project
+gcloud config set project fraud-detection-app-505219
+build service account: 626338298812-compute@developer.gserviceaccount.com
+
+gcloud projects add-iam-policy-binding fraud-detection-app-505219 \
+  --member="serviceAccount:626338298812-compute@developer.gserviceaccount.com" \
+  --role="roles/run.builder"
+
+gcloud builds log 1239fbc4-ed0f-4ba1-8eed-9b9c845733ea \
+  --region=europe-west1 | tail -n 80
+
+gcloud run services logs read fraud-detection-app \
+  --region=europe-west1 \
+  --limit=100
+
+find . -name "*.pkl" -exec ls -lh {} \;
+
+gcloud run deploy fraud-detection-app \
+  --source . \
+  --region europe-west1 \
+  --allow-unauthenticated
+
+
+gcloud run deploy fraud-detection-app \
+  --source . \
+  --region europe-west1 \
+  --allow-unauthenticated \
+  --base-image=python311 \
+  --set-build-env-vars=GOOGLE_PYTHON_VERSION=3.11.x
+
+gcloud run services update fraud-detection-app \
+  --region=europe-west1 \
+  --memory=2Gi \
+  --cpu=2
+
+gcloud logging read \
+'resource.type="cloud_run_revision"
+AND resource.labels.service_name="fraud-detection-app"
+AND resource.labels.revision_name="fraud-detection-app-00003-p6k"' \
+--limit=100 \
+--order=desc
