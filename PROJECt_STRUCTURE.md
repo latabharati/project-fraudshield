@@ -50,15 +50,20 @@ FraudShield/
 └── project_structure.md
     └── Description of the repository structure
 
-Main Components
+# Main Components
+
 Data Analysis
 FraudDetection-EDA.ipynb contains the exploratory data analysis carried out before model development, including missing-value analysis, fraud distribution and relationships between different transaction features.
+
 Preprocessing and Modelling
 The preprocessing notebook contains the main steps used to prepare the IEEE-CIS dataset for machine learning, including missing-value handling, categorical encoding, feature engineering and preparation of the train, validation and test datasets.
+
 Model Artifacts
 The artifacts folder contains trained models and preprocessing objects saved during the machine learning process. These files are loaded by the Flask application when predictions are made.
+
 Web Application
 The main application is contained in app.py.
 The templates folder contains the HTML pages, while the static folder contains the CSS and JavaScript files used for the user interface.
+
 Deployment
 requirements.txt, Procfile and .python-version contain the main configuration needed to run and deploy the application.
