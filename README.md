@@ -91,6 +91,4 @@ The web application was created as a research prototype rather than a production
 
 Python, Pandas, NumPy, Scikit-learn, XGBoost, CatBoost, TensorFlow/Keras, SHAP, Flask, Joblib, JavaScript, HTML and CSS.
 
-## What I Learned
 
-This project helped me understand how different machine learning models behave on a highly imbalanced real-world dataset. I also learned that evaluating a fraud detection model is not only about getting the highest score. Things like precision, recall, threshold selection, model stability and explainability are also important when deciding which model should be used.
