@@ -1,4 +1,4 @@
-# 🛡️ FraudShield – Credit Card Fraud Detection
+# 🛡️ FraudShield – Credit Card Fraud Detection (Web App : https://fraud-detection-app-626338298812.europe-west1.run.app/)
 
 FraudShield is a machine learning project I developed as part of my MSc Data Science dissertation. The main aim of the project was to compare different machine learning approaches for detecting fraudulent credit card transactions and also build a simple web application to demonstrate the predictions.
 
