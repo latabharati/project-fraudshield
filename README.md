@@ -85,7 +85,7 @@ The application includes:
 
 For the live monitoring feature, I used **Server-Sent Events (SSE)** to replay transactions from the test dataset one by one and simulate a real-time transaction stream.
 
-The web application was created as a research prototype rather than a production banking system. :chatgpt-content-reference{index="6"}
+The web application was created as a research prototype rather than a production banking system.
 
 ## Technologies Used
 
