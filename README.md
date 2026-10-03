@@ -1,62 +1,96 @@
-## 🛡️ FraudShield — Fraudulent Transaction Detection System
+# 🛡️ FraudShield – Credit Card Fraud Detection
 
-FraudShield is an end-to-end machine learning project designed to detect fraudulent customer transactions using the **IEEE-CIS Fraud Detection dataset**, containing more than **590,000 transactions and 400+ features**.
+FraudShield is a machine learning project I developed as part of my MSc Data Science dissertation. The main aim of the project was to compare different machine learning approaches for detecting fraudulent credit card transactions and also build a simple web application to demonstrate the predictions.
 
-The project covers the complete machine learning workflow, from data preprocessing and feature engineering to model training, evaluation, explainability, and deployment.
+I used the IEEE-CIS Fraud Detection dataset, which contains more than 590,000 transactions. After combining the transaction and identity datasets, the final dataset had 435 features. The dataset was highly imbalanced, with only around 3.5% of the transactions marked as fraud. :chatgpt-content-reference{index="0"} :chatgpt-content-reference{index="1"}
 
-### 🔍 Key Features
+## Models Used
 
-- Merged transaction and identity datasets containing **590K+ transactions**
-- Handled missing values, numerical and categorical features, and high-dimensional data
-- Engineered time-based features such as **RelativeHour** and **RelativeWeekday**
-- Addressed severe class imbalance using techniques such as **SMOTE**
-- Built and compared multiple supervised learning models:
-  - Logistic Regression
-  - Random Forest
-  - XGBoost
-  - CatBoost
-  - Multi-Layer Perceptron (MLP)
-- Implemented unsupervised anomaly detection using:
-  - Isolation Forest
-  - Autoencoder
-- Developed ensemble approaches using:
-  - Soft Voting
-  - Stacking
-- Used **PR-AUC as the primary evaluation metric** because of the highly imbalanced fraud dataset
-- Selected classification thresholds using validation-set F1 scores
-- Calculated **95% bootstrap confidence intervals** for PR-AUC and ROC-AUC
-- Analysed model stability across different transaction time periods
-- Used **SHAP** to explain model predictions and identify important fraud indicators
+I trained and compared nine different machine learning models:
 
-### 📊 Results
+- Logistic Regression
+- Random Forest
+- XGBoost
+- CatBoost
+- Multilayer Perceptron (MLP)
+- Isolation Forest
+- Autoencoder
+- Soft Voting
+- Stacking
 
-The **Stacking Ensemble** achieved the strongest overall performance:
+These models were chosen to compare supervised learning, anomaly detection and ensemble learning approaches.
 
-- **PR-AUC:** 0.4792
-- **ROC-AUC:** 0.8882
+## Data Processing
 
-Other strong models included:
+Before training the models, I carried out exploratory data analysis and preprocessing.
 
-- XGBoost — PR-AUC: **0.4599**
-- Random Forest — PR-AUC: **0.4573**
+Some of the main steps included:
 
-### 🌐 Fraud Detection Web Application
+- analysing missing values
+- handling categorical and numerical features
+- frequency encoding categorical variables
+- log transforming transaction amount
+- creating `RelativeHour` and `RelativeWeekday` features
+- removing highly missing and correlated features
+- scaling features for models that required it
 
-A web application was developed using **Flask, Jinja2, JavaScript and Google Cloud Run**.
+The transactions were split chronologically into 60% training, 20% validation and 20% test data. I used a time-based split instead of a random split so that the models were trained on earlier transactions and tested on later transactions, which is closer to a real fraud detection scenario. :chatgpt-content-reference{index="2"}
+
+## Model Evaluation
+
+Because fraud transactions were a very small part of the dataset, I used **PR-AUC as the main evaluation metric**.
+
+I also compared the models using:
+
+- ROC-AUC
+- Precision
+- Recall
+- F1-score
+- Accuracy
+- Confusion Matrix
+
+The decision threshold for each model was selected using the validation dataset instead of simply using the default threshold of 0.5.
+
+I also used bootstrap sampling to calculate 95% confidence intervals for PR-AUC and ROC-AUC and checked the temporal stability of the best-performing model.
+
+## Results
+
+The **Stacking model gave the highest PR-AUC of 0.4847**, followed by Soft Voting and the tree-based models such as XGBoost, CatBoost and Random Forest.
+
+However, the confidence intervals of the top-performing models overlapped, so the results did not show that Stacking was clearly better than every other model. :chatgpt-content-reference{index="3"}
+
+The results also showed that tree-based and ensemble models worked better on this dataset compared with Logistic Regression, MLP and the anomaly-detection models. :chatgpt-content-reference{index="4"}
+
+## Explainable AI
+
+I used **SHAP** to understand why the models were making their predictions.
+
+For XGBoost, I analysed both overall feature importance and individual transaction predictions. Some important features included `C14`, `V258`, `card6` and `TransactionAmt_log`.
+
+One interesting result was that the model was not depending on one single feature. Instead, the prediction was based on the combined effect of many different features. :chatgpt-content-reference{index="5"}
+
+## FraudShield Web Application
+
+I also developed a Flask-based web application called **FraudShield** to show how the trained models could be used in a simple application.
 
 The application includes:
 
-- Real-time transaction replay using **Server-Sent Events (SSE)**
-- Live fraud probability predictions
-- Manual transaction scoring
-- Fraud analytics dashboard
-- Model explainability using SHAP
-- API demonstration functionality
+- live transaction monitoring
+- fraud probability prediction
+- manual transaction checking
+- switching between different models
+- model performance visualisations
+- SHAP explanations
+- API demonstration
 
-### 🛠️ Tech Stack
+For the live monitoring feature, I used **Server-Sent Events (SSE)** to replay transactions from the test dataset one by one and simulate a real-time transaction stream.
 
-**Python | Pandas | NumPy | Scikit-learn | XGBoost | CatBoost | PyTorch | SHAP | Flask | JavaScript | HTML/CSS | Google Cloud Run**
+The web application was created as a research prototype rather than a production banking system. :chatgpt-content-reference{index="6"}
 
-### 🎯 Project Goal
+## Technologies Used
 
-The goal of FraudShield is to demonstrate how machine learning, anomaly detection, ensemble learning and explainable AI can be combined to build a practical fraud detection system for highly imbalanced financial transaction data.
+Python, Pandas, NumPy, Scikit-learn, XGBoost, CatBoost, TensorFlow/Keras, SHAP, Flask, Joblib, JavaScript, HTML and CSS.
+
+## What I Learned
+
+This project helped me understand how different machine learning models behave on a highly imbalanced real-world dataset. I also learned that evaluating a fraud detection model is not only about getting the highest score. Things like precision, recall, threshold selection, model stability and explainability are also important when deciding which model should be used.
